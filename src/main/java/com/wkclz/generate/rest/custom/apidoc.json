@@ -1,0 +1,7 @@
+{
+  "name": "generate-api",
+  "version": "0.0.1",
+  "description": "代码生成器 接口文档",
+  "title": "demo-api",
+  "url": "http://api.example.com/generate"
+}

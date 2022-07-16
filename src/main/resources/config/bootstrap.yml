@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: shrimp-generate-backend
+    group: shrimp
+  profiles:
+    active: dev
+
+logging:
+  file:
+    name: ./logs/${spring.application.name}.log
+  level:
+    root: INFO
+    com.wkclz: INFO
