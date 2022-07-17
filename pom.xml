@@ -24,11 +24,6 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.wkclz.spring</groupId>
-            <artifactId>shrimp-cloud-spring</artifactId>
-            <version>4.0.0-SNAPSHOT</version>
-        </dependency>
-        <dependency>
             <groupId>com.wkclz.mybatis</groupId>
             <artifactId>shrimp-cloud-mybatis</artifactId>
             <version>4.0.0-SNAPSHOT</version>
@@ -48,7 +43,7 @@
                 <artifactId>shrimp-cloud-gen-plugin</artifactId>
                 <configuration>
                     <options>
-                        <option>aaaaaaaa</option>
+                        <option>e35a24c424f6429eaf3076612b55bd5a</option>
                     </options>
                 </configuration>
             </plugin>
