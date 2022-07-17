@@ -42,6 +42,13 @@ spring:
       allow_single_quotes: true
 
 
+lz:
+  security:
+    domain:
+      api: false
+      tenant: false
+
+
 ##### client & service 公用配置 #####
 
 # Tomcat specifics
