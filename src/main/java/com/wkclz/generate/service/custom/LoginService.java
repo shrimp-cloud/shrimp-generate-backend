@@ -1,11 +1,11 @@
 package com.wkclz.generate.service.custom;
 
+import com.wkclz.auth.helper.AliveTimeHelper;
 import com.wkclz.common.entity.Result;
 import com.wkclz.common.utils.SecretUtil;
 import com.wkclz.common.utils.ValidateCode;
 import com.wkclz.generate.constant.GenConstant;
 import com.wkclz.generate.dao.CasUserMapper;
-import com.wkclz.generate.helper.BaseHelper;
 import com.wkclz.generate.pojo.entity.CasUser;
 import com.wkclz.generate.pojo.vo.VerifyCode;
 import com.wkclz.mybatis.base.BaseService;
@@ -54,12 +54,12 @@ public class LoginService extends BaseService<CasUser, CasUserMapper> {
             log.error(e.getMessage());
             return Result.error(e.getMessage());
         }
-        return new Result<>(vc);
+        return Result.data(vc);
     }
 
     public Result<Map<String, String>> ssoUserTempToken(HttpServletRequest req) {
         String tempTokenKey = GenConstant.TOKEN_PREFIX + "temp_" + SecretUtil.getKey();
-        String token = BaseHelper.getToken(req);
+        String token = AliveTimeHelper.getToken(req);
         stringRedisTemplate.boundValueOps(tempTokenKey).set(token, 60L, TimeUnit.SECONDS);
         Map<String, String> tokenMap = new HashMap<>();
         tokenMap.put("tempToken", tempTokenKey);
