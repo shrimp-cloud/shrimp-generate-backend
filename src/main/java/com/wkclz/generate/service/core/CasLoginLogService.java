@@ -14,10 +14,9 @@ import org.springframework.stereotype.Service;
 @Service
 public class CasLoginLogService extends BaseService<CasLoginLog, CasLoginLogMapper> {
 
-    // 示例方法，可删除
-    public Integer example(){
-        return mapper.example();
-    }
 
+    public Integer increaseLoginTime(){
+        return  mapper.increaseLoginTime();
+    }
 }
 

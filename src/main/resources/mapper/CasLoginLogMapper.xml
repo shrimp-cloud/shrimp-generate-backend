@@ -2,13 +2,12 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.wkclz.generate.dao.CasLoginLogMapper">
 
-  <!-- // 示例查询, 可删除 -->
-  <select id="example" resultType="java.lang.Integer">
-    SELECT
-      1 count
-    FROM
-      DUAL
-  </select>
-  
+
+    <update id="increaseLoginTime">
+        UPDATE sys_config
+        SET sys_value = sys_value + 1
+        WHERE
+        sys_key = 'login_times';
+    </update>
 </mapper>
 

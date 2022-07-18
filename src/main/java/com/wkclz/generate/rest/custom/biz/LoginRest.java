@@ -1,13 +1,19 @@
 package com.wkclz.generate.rest.custom.biz;
 
 import com.wkclz.common.entity.Result;
+import com.wkclz.generate.pojo.ro.CaptchaInfoRo;
 import com.wkclz.generate.pojo.vo.VerifyCode;
 import com.wkclz.generate.rest.custom.Routes;
 import com.wkclz.generate.service.custom.LoginService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -22,7 +28,7 @@ public class LoginRest {
     private LoginService loginService;
 
     /**
-     * @api {post} /login/captcha/picture 1.0 login-图片验证码
+     * @api {post} /sys/public/captcha/picture 1.0 login-图片验证码
      * @apiGroup LOGIN
      *
      * @apiVersion 0.0.1
@@ -41,29 +47,70 @@ public class LoginRest {
      *     }
      * }
      */
-    @PostMapping(Routes.COMMON_CAPTCHA_PICTURE)
+    @PostMapping(Routes.LOGIN_CAPTCHA_PICTURE)
     public Result<VerifyCode> getVerifyCode(@RequestBody VerifyCode vc) {
         return loginService.getVerifyCode(vc);
     }
 
+
+
     /**
-     * @api {GET} /login/user/temp/token 1.1 login-获取临时token
+     * @api {GET} /login/public/user/token/login 1.1 login-使用临时token登录
      * @apiGroup LOGIN
      * @apiVersion 0.0.1
-     * @apiDescription login-获取临时token 前端需将
-     * @apiSuccess {String} tempToken 临时token
+     * @apiDescription 1.2 login-使用临时token登录
+     * @apiSuccess {String} token 原token
      * @apiSuccessExample {json} 返回样例:
      * {
      *     "code": 1,
      *     "data": {
-     *         "tempToken":"xxxxxxxxxxxxxxxxxxxx"
+     *         "token":"xxxxxxxxxxxxxxxxxxxx"
      *     }
      * }
      */
-    @GetMapping(Routes.SSO_USER_TEMP_TOKEN)
-    public Result<Map<String, String>> ssoUserTempToken(HttpServletRequest req) {
-        return loginService.ssoUserTempToken(req);
+    @GetMapping(Routes.LOGIN_USER_TOKEN_TMP)
+    public Result<Map<String, String>> publicSsoUserTokenLogin(@RequestParam("token") String tempToken) {
+        return loginService.publicSsoUserTokenLogin(tempToken);
     }
+
+
+
+    /**
+     * @api {POST} /sys/public/user/login 1.2 login-登录
+     * @apiGroup LOGIN
+     *
+     * @apiVersion 0.0.1
+     * @apiDescription 系统登录，username 自动识别为用户名
+     *
+     * @apiParam {String} username 用户名
+     * @apiParam {String} password 密码
+     * @apiParam {String} [messageId] 【上一次登录失败时必需】图片验证码id
+     * @apiParam {String} [captcha] 【上一次登录失败时必需】图片验证码
+     *
+     * @apiParamExample {json} 请求样例：
+     * {
+     *     "username":"admin",
+     *     "password":"admiPassword"
+     * }
+     *
+     * @apiSuccess {String} token 用户token
+     *
+     * @apiSuccessExample {json} 返回样例:
+     * {
+     *      "code": 1,
+     *      "data": {
+     *          "token": "4fa26ce18d7c52b810c7f7eae61e719b"
+     *      }
+     * }
+     */
+    @PostMapping(Routes.LOGIN_USER)
+    @Transactional(rollbackFor = Exception.class)
+    public Result<Map<String, String>> userLogin(HttpServletRequest req, HttpServletResponse rep,
+                                                 @RequestBody CaptchaInfoRo model){
+        return loginService.userLogin(req,rep,model);
+    }
+
+
 
 
 

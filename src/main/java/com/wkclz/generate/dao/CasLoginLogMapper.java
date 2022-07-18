@@ -13,8 +13,8 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface CasLoginLogMapper extends BaseMapper<CasLoginLog> {
 
-    // 示例查询,可删除
-    Integer example();
+
+    Integer increaseLoginTime();
 
 }
 

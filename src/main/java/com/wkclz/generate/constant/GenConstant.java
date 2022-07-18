@@ -10,10 +10,10 @@ public interface GenConstant {
     /**
      * 验证码图片前缀
      */
-    String IMAGE_PREFIX = "lz.generate.image.";
+    String IMAGE_PREFIX = "lz:generate:image:";
 
     /**
      * 验证码图片前缀
      */
-    String TOKEN_PREFIX = "lz.generate.auth.token.";
+    String TOKEN_PREFIX = "lz:generate:auth:token:";
 }
