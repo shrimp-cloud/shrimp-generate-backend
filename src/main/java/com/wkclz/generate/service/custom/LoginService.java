@@ -62,10 +62,11 @@ public class LoginService extends BaseService<CasUser, CasUserMapper> {
 
 
     public Result<VerifyCode> getVerifyCode(VerifyCode vc) {
-        String messageId = GenConstant.IMAGE_PREFIX + SecretUtil.getKey();
+        String messageId = SecretUtil.getKey();
         String code = ValidateCode.generateTextCode(5, 4, (String) null);
         vc.setMessageId(messageId);
-        stringRedisTemplate.opsForValue().set(messageId, code.toLowerCase(), 180L, TimeUnit.SECONDS);
+        stringRedisTemplate.opsForValue().set(GenConstant.IMAGE_PREFIX + messageId,
+            code.toLowerCase(), 180L, TimeUnit.SECONDS);
         BufferedImage bim = ValidateCode.generateImageCode(code, 90, 30, 3,
             true, Color.WHITE, Color.BLACK, (Color) null);
 
@@ -105,7 +106,7 @@ public class LoginService extends BaseService<CasUser, CasUserMapper> {
 
         CasLoginLog log = new CasLoginLog();
         log.setLoginName(username);
-
+        casUser.setUsername(username);
         String password = model.getPassword();
         if (StringUtils.isBlank(password)){
             result.setError("Password can not be null");
@@ -131,17 +132,14 @@ public class LoginService extends BaseService<CasUser, CasUserMapper> {
             return result.setMoreRemind(ResultStatus.USERNAME_PASSWORD_ERROR);
         }
 
-
-
         // 主动的验证码，也效验
         if (StringUtils.isNotBlank(model.getMessageId()) && StringUtils.isNotBlank(model.getCaptcha())){
-            String serverCaptcha = stringRedisTemplate.opsForValue().get(model.getMessageId());
+            String serverCaptcha = stringRedisTemplate.opsForValue()
+                .get(GenConstant.IMAGE_PREFIX + model.getMessageId());
             if (serverCaptcha == null || !serverCaptcha.equalsIgnoreCase(model.getCaptcha())) {
                 return result.setMoreRemind(ResultStatus.CAPTCHA_ERROR);
             }
         }
-
-        log.setUserId(casUser.getUserId());
 
         // 密码效验
         if( casUser.getPassword() == null || casUser.getSalt() == null
@@ -168,7 +166,6 @@ public class LoginService extends BaseService<CasUser, CasUserMapper> {
         }
         Map<String, String> tokenMap = authHelper.setUser(req, userInfo);
 
-        casLoginLogService.increaseLoginTime();
         return result.setData(tokenMap);
     }
 

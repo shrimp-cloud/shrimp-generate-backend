@@ -14,7 +14,5 @@ import org.apache.ibatis.annotations.Mapper;
 public interface CasLoginLogMapper extends BaseMapper<CasLoginLog> {
 
 
-    Integer increaseLoginTime();
-
 }
 

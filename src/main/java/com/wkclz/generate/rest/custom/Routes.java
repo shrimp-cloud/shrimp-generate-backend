@@ -190,12 +190,12 @@ public interface Routes {
      * 登录相关
      */
     @Desc("1.0 login-图片验证码")
-    String LOGIN_CAPTCHA_PICTURE = "/sys/public/captcha/picture";
+    String LOGIN_CAPTCHA_PICTURE = "/public/captcha/picture";
 
 
     @Desc("1.1 login-使用临时token登录")
-    String LOGIN_USER_TOKEN_TMP = "/login/public/user/token/login";
+    String LOGIN_USER_TOKEN_TMP = "/public/user/token/login";
 
     @Desc("1.2 login-登录")
-    String LOGIN_USER = "/sys/public/user/login";
+    String LOGIN_USER = "/public/user/login";
 }

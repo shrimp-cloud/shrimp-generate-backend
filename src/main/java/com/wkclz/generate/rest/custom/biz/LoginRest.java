@@ -28,7 +28,7 @@ public class LoginRest {
     private LoginService loginService;
 
     /**
-     * @api {post} /sys/public/captcha/picture 1.0 login-图片验证码
+     * @api {post} /public/captcha/picture 1.0 login-图片验证码
      * @apiGroup LOGIN
      *
      * @apiVersion 0.0.1
@@ -76,7 +76,7 @@ public class LoginRest {
 
 
     /**
-     * @api {POST} /sys/public/user/login 1.2 login-登录
+     * @api {POST} /public/user/login 1.2 login-登录
      * @apiGroup LOGIN
      *
      * @apiVersion 0.0.1

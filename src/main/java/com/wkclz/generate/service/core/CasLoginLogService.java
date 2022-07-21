@@ -15,8 +15,5 @@ import org.springframework.stereotype.Service;
 public class CasLoginLogService extends BaseService<CasLoginLog, CasLoginLogMapper> {
 
 
-    public Integer increaseLoginTime(){
-        return  mapper.increaseLoginTime();
-    }
 }
 

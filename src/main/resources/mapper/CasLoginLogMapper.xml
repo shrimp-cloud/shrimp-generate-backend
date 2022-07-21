@@ -3,11 +3,5 @@
 <mapper namespace="com.wkclz.generate.dao.CasLoginLogMapper">
 
 
-    <update id="increaseLoginTime">
-        UPDATE sys_config
-        SET sys_value = sys_value + 1
-        WHERE
-        sys_key = 'login_times';
-    </update>
 </mapper>
 
