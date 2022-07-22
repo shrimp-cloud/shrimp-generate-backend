@@ -1,5 +1,5 @@
 # 基础镜像使用java
-FROM registry-vpc.cn-shenzhen.aliyuncs.com/lz-cloud/centos7:latest
+FROM registry.cn-shenzhen.aliyuncs.com/lz-cloud/centos7:latest
 # 作者
 MAINTAINER wangkc <wkclz@qq.com>
 # VOLUME 指定了临时文件目录为/tmp。
@@ -10,4 +10,4 @@ VOLUME /tmp
 ADD target/*.jar app.jar
 # 运行jar包
 # RUN bash -c 'touch /app.jar'
-ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/app.jar",'--spring.profiles.active=uat']
+ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","app.jar","--spring.profiles.active=uat"]
